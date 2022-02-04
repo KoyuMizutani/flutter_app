@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () async {
           // ⑤ TextInputDialogを用いて、任意の文字列を取得する。
           var label = await _showTextInputDialog(context);
-          _count ++;
+          // _count ++;
           if (label != null) {
             setState(() {
               widget.cards.add(TodoCardWidget(label: label));
@@ -147,7 +147,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   primary: Colors.orange,
                 ),
                 child: const Text('OK'),
-                onPressed: () => Navigator.pop(context, _textFieldController.text),
+                onPressed: () {
+                  Navigator.pop(context, _textFieldController.text);
+                  _count++;
+                } ,
               ),
             ],
           );
