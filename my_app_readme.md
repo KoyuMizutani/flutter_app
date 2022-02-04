@@ -4,11 +4,14 @@
 工学部電子情報工学科3年 03210460 水谷航悠
 </div>
 
+[GitHubリンク](https://github.com/metaphy-hub/flutter_app)
+
+[GoogleDriveリンク](https://drive.google.com/drive/folders/1RMCuDdR21FcRbbz58JctFymq-28IkTyD?usp=sharing)
 ## todoリスト
 公開された資料をもとに，ToDoとチェック状態が保存されるToDoリストを作成し，それを拡張して以下のようなToDoリストを作成した．
 
-<img src="home.png" width="40%">
-<img src="add.png" width="40%">
+<img src="home.png" width="35%">
+<img src="add.png" width="35%">
 
 資料のToDoリストとの違いは以下の通りである．
 * 中央部分の背景を暗くし，taskをより見えやすくした．
