@@ -43,16 +43,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  int _count = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My TODO"),
+        title: const Text("My ToDo"),
+        backgroundColor: Colors.orange,
         actions: [
           // ⑦ナビゲーションバーの右上にゴミ箱ボタンを設置
           IconButton(
               onPressed: () {
                 // ⑧ 押された場合は、保存されているTODOを全て削除
+                _count = 0;
                 SharedPreferences.getInstance().then((prefs) async {
                   await prefs.setStringList("todo", []);
                   setState(() {
@@ -71,11 +74,28 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
       ),
+      backgroundColor: Colors.blueGrey.shade100,
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        child: Container(
+          child: Text(
+            "$_count tasks to do.",
+            style: TextStyle(
+              color: Colors.orange,
+              fontSize:30,
+            ),
+          ),
+          height: 50.0,
+          alignment: Alignment.topCenter,
+        ),
+      ),
+
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.orange,
         onPressed: () async {
           // ⑤ TextInputDialogを用いて、任意の文字列を取得する。
           var label = await _showTextInputDialog(context);
-
+          _count ++;
           if (label != null) {
             setState(() {
               widget.cards.add(TodoCardWidget(label: label));
@@ -102,15 +122,30 @@ class _MyHomePageState extends State<MyHomePage> {
           return AlertDialog(
             title: const Text('TODO'),
             content: TextField(
+              decoration: const InputDecoration(
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange),
+                ),
+                hintText: "タスクの名称を入力してください。",
+              ),
               controller: _textFieldController,
-              decoration: const InputDecoration(hintText: "タスクの名称を入力してください。"),
+              // decoration: const InputDecoration(hintText: "タスクの名称を入力してください。"),
             ),
             actions: <Widget>[
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.orange,
+                ),
                 child: const Text("キャンセル"),
                 onPressed: () => Navigator.pop(context),
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.orange,
+                ),
                 child: const Text('OK'),
                 onPressed: () => Navigator.pop(context, _textFieldController.text),
               ),
