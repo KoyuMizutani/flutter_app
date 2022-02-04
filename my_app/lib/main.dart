@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+int _count = 0;
 
 ///////////////////////////////
 void main() => runApp(MyApp());
@@ -25,10 +26,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    // SharedPreferences.getInstance().then((prefs){
-    //   int count = prefs.getInt("count") ?? 0;
-
-    // })
+    SharedPreferences.getInstance().then((prefs){
+      var todo = prefs.getStringList("todo") ?? [];
+      setState(() {
+        _count = todo.length;
+      });
+    });
   }
 
   /// ---- ① 非同期にカードリストを生成する関数 ----
@@ -45,10 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return cards;
   }
-
+  
   /// ------------------------------------
   
-  int _count = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
             var jsonStr = jsonEncode(mapObj);
             todo.add(jsonStr);
             await prefs.setStringList("todo", todo);
-
+            _count = todo.length;
             setState(() {});
           }
         },
@@ -176,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: const Text('OK'),
                 onPressed: () {
                   Navigator.pop(context, _textFieldController.text);
-                  _count++;
+                  // _count++;
                 },
               ),
             ],
