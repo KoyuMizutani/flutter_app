@@ -48,7 +48,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My ToDo"),
+        title: const Text(
+          "My ToDo",
+          style: TextStyle(
+            fontSize: 25,
+          ),
+        ),
         backgroundColor: Colors.orange,
         actions: [
           // ⑦ナビゲーションバーの右上にゴミ箱ボタンを設置
@@ -76,22 +81,23 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: Colors.blueGrey.shade100,
       bottomNavigationBar: BottomAppBar(
+        color: Colors.orange,
         shape: const CircularNotchedRectangle(),
         child: Container(
           child: Text(
-            "$_count tasks to do.",
+            "$_count tasks",
             style: TextStyle(
-              color: Colors.orange,
-              fontSize:30,
+              color: Colors.white,
+              fontSize:25,
             ),
           ),
-          height: 50.0,
-          alignment: Alignment.topCenter,
+          height: 35.0,
+          alignment: Alignment.center,
         ),
       ),
 
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.orange[800],
         onPressed: () async {
           // ⑤ TextInputDialogを用いて、任意の文字列を取得する。
           var label = await _showTextInputDialog(context);
@@ -122,6 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return AlertDialog(
             title: const Text('TODO'),
             content: TextField(
+              cursorColor: Colors.orange,
               decoration: const InputDecoration(
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange),
